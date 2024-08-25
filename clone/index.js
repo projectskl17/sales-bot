@@ -6,8 +6,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const https = require('https');
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/probot.ddns.net/privkey.pem'), 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/probot.ddns.net/fullchain.pem'), 'utf8');
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/probot.ddns.net/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/probot.ddns.net/fullchain.pem', 'utf8');
 const credentials = { key: privateKey, cert: certificate };
 
 const pluginsFolder = path.join(__dirname, 'plugins');
