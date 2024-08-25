@@ -54,7 +54,13 @@ class BotManager {
     bot.initialize();
 
     this.app.post(`/bot${token}`, (req, res) => {
+      console.log(req.body)
       bot.handleUpdate(req.body);
+      res.sendStatus(200);
+    });
+
+    this.app.get(`/bot`, (req, res) => {
+      console.log(req)
       res.sendStatus(200);
     });
 
