@@ -38,24 +38,24 @@ addCommand('start', async (bot, chatId) => {
         return chunks;
     };
 
-    let buttonsPerRow = 2;
-    if (products.length === 3) {
-        buttonsPerRow = [2, 1];
-    } else if (products.length % 3 === 0) {
-        buttonsPerRow = 3;
-    } else if (products.length % 2 !== 0) {
-        buttonsPerRow = 2;
-    }
-
-    const inlineKeyboard = products.length === 3
-        ? [
+    let inlineKeyboard;
+    if (products.length === 2) {
+        inlineKeyboard = [
+            [{ text: products[0].name, callback_data: `product:${products[0]._id}` }],
+            [{ text: products[1].name, callback_data: `product:${products[1]._id}` }]
+        ];
+    } else if (products.length === 3) {
+        inlineKeyboard = [
             products.slice(0, 2).map(product => ({ text: product.name, callback_data: `product:${product._id}` })),
             products.slice(2).map(product => ({ text: product.name, callback_data: `product:${product._id}` }))
-        ]
-        : chunkArray(
+        ];
+    } else {
+        const buttonsPerRow = products.length % 3 === 0 ? 3 : 2;
+        inlineKeyboard = chunkArray(
             products.map(product => ({ text: product.name, callback_data: `product:${product._id}` })),
             buttonsPerRow
         );
+    }
 
     bot.sendMessage(chatId, '<b>Products List</b>', {
         parse_mode: 'HTML',
@@ -64,6 +64,7 @@ addCommand('start', async (bot, chatId) => {
         }
     });
 });
+
 
 addCallback('product', async (bot, query) => {
     const productId = query.data.split(':')[1];
