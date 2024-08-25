@@ -220,8 +220,7 @@ addCallback('cancel', (bot, query) => {
 });
 
 addCommand('stats', async (bot, chatId, msg) => {
-    console.log(chatId)
-    if (ADMINS.includes(chatId)) {
+    if (chatId && ADMINS.includes(chatId.toString())) {
     const tokens = await db.getTokens();
     const totalUsers = tokens.length;
     let text = `Total users: ${totalUsers}\n\n`;
