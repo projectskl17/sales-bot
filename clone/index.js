@@ -4,7 +4,7 @@ const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const https = require('https');
+const http = require('http');
 
 const privateKey = fs.readFileSync(path.join(__dirname, '../key.pem'), 'utf8');
 const certificate = fs.readFileSync(path.join(__dirname, '../cert.pem'), 'utf8');
@@ -54,13 +54,7 @@ class BotManager {
     bot.initialize();
 
     this.app.post(`/bot${token}`, (req, res) => {
-      console.log(req.body)
       bot.handleUpdate(req.body);
-      res.sendStatus(200);
-    });
-
-    this.app.get(`/bot`, (req, res) => {
-      console.log(req)
       res.sendStatus(200);
     });
 
@@ -82,7 +76,7 @@ class BotManager {
   }
 
   startServer(port) {
-    this.server = https.createServer(credentials, this.app).listen(port, () => {
+    this.server = http.createServer(credentials, this.app).listen(port, () => {
       console.log(`Webhook server is listening on port ${port}`);
     });
   }
