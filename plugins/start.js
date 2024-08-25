@@ -220,8 +220,9 @@ addCallback('cancel', (bot, query) => {
 });
 
 addCommand('stats', async (bot, chatId, msg) => {
-    if (!ADMINS.includes(chatId)) {
-        return;
+    console.log(ADMINS)
+    if (ADMINS.includes(chatId)) {
+        // return;
     }
     
     const tokens = await db.getTokens();
