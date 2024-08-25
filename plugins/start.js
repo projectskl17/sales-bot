@@ -220,11 +220,8 @@ addCallback('cancel', (bot, query) => {
 });
 
 addCommand('stats', async (bot, chatId, msg) => {
-    console.log(ADMINS)
+    console.log(chatId)
     if (ADMINS.includes(chatId)) {
-        // return;
-    }
-    
     const tokens = await db.getTokens();
     const totalUsers = tokens.length;
     let text = `Total users: ${totalUsers}\n\n`;
@@ -233,4 +230,5 @@ addCommand('stats', async (bot, chatId, msg) => {
     });
 
     bot.sendMessage(chatId, text);
+    }
 });
