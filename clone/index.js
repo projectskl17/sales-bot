@@ -4,7 +4,7 @@ const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const http = require('http');
+const https = require('https');
 
 const privateKey = fs.readFileSync(path.join(__dirname, '../key.pem'), 'utf8');
 const certificate = fs.readFileSync(path.join(__dirname, '../cert.pem'), 'utf8');
@@ -76,7 +76,7 @@ class BotManager {
   }
 
   startServer(port) {
-    this.server = http.createServer(credentials, this.app).listen(port, () => {
+    this.server = https.createServer(credentials, this.app).listen(port, () => {
       console.log(`Webhook server is listening on port ${port}`);
     });
   }
